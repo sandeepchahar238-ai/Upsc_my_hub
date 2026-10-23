@@ -16,284 +16,355 @@
 <body class="bg-slate-100 text-slate-800 pb-24">
 
     <!-- Header -->
-    <header class="bg-indigo-950 text-white p-4 shadow-md sticky top-0 z-40 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-            <span class="text-2xl">🎯</span>
-            <div>
-                <h1 class="text-lg font-bold">UPSC My Hub</h1>
-                <p class="text-[10px] text-indigo-200">Custom Study & Files Manager</p>
+    <header class="bg-indigo-950 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">📖</span>
+                <div>
+                    <h1 class="text-lg font-bold">UPSC My Hub</h1>
+                    <p class="text-[10px] text-indigo-200">Sandeep's Ultimate Study & Tracker Tool</p>
+                </div>
             </div>
+            <span class="bg-indigo-900 text-xs px-2.5 py-1 rounded-full text-indigo-200 border border-indigo-700">Online</span>
         </div>
-        <span class="bg-indigo-900 text-xs px-2.5 py-1 rounded-full text-indigo-200 font-medium border border-indigo-700">Personal</span>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav class="bg-white shadow-sm border-b border-slate-200 sticky top-16 z-30 grid grid-cols-4 p-1 text-center">
-        <button onclick="switchTab('books')" id="tabBooks" class="py-2 text-[10px] font-bold text-indigo-700 border-b-2 border-indigo-700 transition cursor-pointer">📖 बुक्स & PDF</button>
-        <button onclick="switchTab('notes')" id="tabNotes" class="py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer">✍️ हैंड नोट्स</button>
-        <button onclick="switchTab('files')" id="tabFiles" class="py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer">📁 इमेज/फाइल</button>
-        <button onclick="switchTab('time')" id="tabTime" class="py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer">⏰ टाइमटेबल</button>
-    </nav>
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto p-4">
 
-    <main class="max-w-md mx-auto p-4 space-y-4">
-        
-        <!-- TAB 1: BOOKS & PDF -->
-        <div id="sectionBooks" class="space-y-3">
-            <div class="bg-indigo-50 border border-indigo-200 p-4 rounded-2xl flex justify-between items-center">
-                <div>
-                    <h2 class="font-bold text-indigo-900 text-sm">📖 Book PDFs & Links</h2>
-                    <p class="text-xs text-indigo-700 mt-1">लेखक के नाम के साथ अपनी किताबें जोड़ें।</p>
-                </div>
-                <button onclick="openModal('bookModal')" class="bg-indigo-700 text-white text-xs px-3 py-2 rounded-xl font-bold shadow hover:bg-indigo-800 cursor-pointer">+ बुक जोड़ें</button>
-            </div>
-            <div id="booksContainer" class="space-y-2.5"></div>
+        <!-- Tabs Navigation -->
+        <div class="flex overflow-x-auto space-x-2 bg-white p-2 rounded-xl shadow-sm mb-6 border border-slate-200 scrollbar-none">
+            <button onclick="switchTab('books')" id="tab-books" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white transition">📚 Books & Links</button>
+            <button onclick="switchTab('notes')" id="tab-notes" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">✍️ Notes</button>
+            <button onclick="switchTab('files')" id="tab-files" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">📁 Files & Imgs</button>
+            <button onclick="switchTab('timetable')" id="tab-timetable" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">⏰ Timetable</button>
+            <button onclick="switchTab('progress')" id="tab-progress" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">📊 Syllabus Tracker</button>
         </div>
 
-        <!-- TAB 2: HAND NOTES -->
-        <div id="sectionNotes" class="space-y-3 hidden">
-            <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl flex justify-between items-center">
-                <div>
-                    <h2 class="font-bold text-amber-900 text-sm">✍️ Hand Notes</h2>
-                    <p class="text-xs text-amber-700 mt-1">अपने लिखे हुए महत्वपूर्ण नोट्स सेव करें।</p>
-                </div>
-                <button onclick="openModal('noteModal')" class="bg-amber-700 text-white text-xs px-3 py-2 rounded-xl font-bold shadow hover:bg-amber-800 cursor-pointer">+ नोट जोड़ें</button>
+        <!-- 1. BOOKS & LINKS TAB -->
+        <div id="section-books" class="space-y-4">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-md font-bold text-slate-800 mb-3">Add Book / PDF Link</h2>
+                <form id="bookForm" onsubmit="addBook(event)" class="space-y-3">
+                    <input type="text" id="bookTitle" placeholder="Book / Document Name" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="text" id="bookAuthor" placeholder="Author / Publication Name" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="url" id="bookUrl" placeholder="Paste PDF / Web Link (https://...)" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Save Book Link</button>
+                </form>
             </div>
-            <div id="notesContainer" class="space-y-2.5"></div>
+            <div id="booksList" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 3: FILES & IMAGES -->
-        <div id="sectionFiles" class="space-y-3 hidden">
-            <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex justify-between items-center">
-                <div>
-                    <h2 class="font-bold text-emerald-900 text-sm">📁 Images & Files</h2>
-                    <p class="text-xs text-emerald-700 mt-1">तस्वीरें या जरूरी डाक्यूमेंट्स अपलोड करें।</p>
-                </div>
-                <button onclick="openModal('fileModal')" class="bg-emerald-700 text-white text-xs px-3 py-2 rounded-xl font-bold shadow hover:bg-emerald-800 cursor-pointer">+ फाइल जोड़ें</button>
+        <!-- 2. NOTES TAB -->
+        <div id="section-notes" class="space-y-4 hidden">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-md font-bold text-slate-800 mb-3">Add Handwritten / Typed Note</h2>
+                <form id="noteForm" onsubmit="addNote(event)" class="space-y-3">
+                    <input type="text" id="noteTitle" placeholder="Note Topic / Title" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <textarea id="noteContent" placeholder="Write your notes or summary here..." rows="4" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Save Note</button>
+                </form>
             </div>
-            <div id="filesContainer" class="space-y-2.5"></div>
+            <div id="notesList" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 4: TIMETABLE -->
-        <div id="sectionTime" class="space-y-3 hidden">
-            <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl flex justify-between items-center">
-                <div>
-                    <h2 class="font-bold text-rose-900 text-sm">⏰ Daily Timetable</h2>
-                    <p class="text-xs text-rose-700 mt-1">अपना दैनिक अध्ययन समय सारणी सेट करें।</p>
-                </div>
-                <button onclick="openModal('timeModal')" class="bg-rose-700 text-white text-xs px-3 py-2 rounded-xl font-bold shadow hover:bg-rose-800 cursor-pointer">+ समय जोड़ें</button>
+        <!-- 3. FILES & IMAGES TAB -->
+        <div id="section-files" class="space-y-4 hidden">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-md font-bold text-slate-800 mb-3">Upload Local File / Image</h2>
+                <form id="fileForm" onsubmit="addFile(event)" class="space-y-3">
+                    <input type="text" id="fileName" placeholder="File / Image Description" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="file" id="fileInput" accept="image/*,.pdf" required class="w-full p-2 text-sm border rounded-lg bg-slate-50">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Upload & Save</button>
+                </form>
             </div>
-            <div id="timeContainer" class="space-y-2.5"></div>
+            <div id="filesList" class="space-y-3"></div>
         </div>
+
+        <!-- 4. TIMETABLE TAB -->
+        <div id="section-timetable" class="space-y-4 hidden">
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <h2 class="text-md font-bold text-slate-800 mb-3">Add Daily Schedule Task</h2>
+                <form id="timetableForm" onsubmit="addTimetable(event)" class="space-y-3">
+                    <div class="flex space-x-2">
+                        <input type="text" id="timeSlot" placeholder="Time (e.g., 08:00 AM - 10:00 AM)" required class="w-1/2 p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <input type="text" id="taskName" placeholder="Study Task" required class="w-1/2 p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Add to Timetable</button>
+                </form>
+            </div>
+            <div id="timetableList" class="space-y-3"></div>
+        </div>
+
+        <!-- 5. SYLLABUS PROGRESS TRACKER TAB -->
+        <div id="section-progress" class="space-y-4 hidden">
+            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
+                <h2 class="text-lg font-bold text-slate-800 mb-1">UPSC Syllabus Completion</h2>
+                <p class="text-xs text-slate-500 mb-4">Track subject-wise topic completion</p>
+                
+                <!-- Overall Progress Bar -->
+                <div class="bg-slate-100 rounded-full h-4 overflow-hidden mb-2 border">
+                    <div id="overallProgressBar" class="bg-indigo-600 h-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+                <p id="overallProgressText" class="text-sm font-bold text-indigo-900">0% Completed</p>
+            </div>
+
+            <!-- Subject Cards Container -->
+            <div id="subjectsContainer" class="space-y-4"></div>
+        </div>
+
     </main>
 
-    <!-- MODAL 1: ADD BOOK -->
-    <div id="bookModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl w-full max-w-sm p-5 space-y-3 shadow-xl">
-            <h3 class="font-bold text-sm text-slate-800">बुक और लेखक का नाम जोड़ें</h3>
-            <input type="text" id="bookTitle" placeholder="बुक का नाम (जैसे- Indian Polity)" class="w-full p-2.5 border rounded-xl text-xs">
-            <input type="text" id="bookAuthor" placeholder="लेखक का नाम (जैसे- M. Laxmikanth)" class="w-full p-2.5 border rounded-xl text-xs">
-            <input type="text" id="bookLink" placeholder="PDF या बुक लिंक (URL)" class="w-full p-2.5 border rounded-xl text-xs">
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('bookModal')" class="w-1/2 bg-slate-100 text-slate-600 py-2 rounded-xl text-xs font-medium cursor-pointer">रद्द करें</button>
-                <button onclick="saveBook()" class="w-1/2 bg-indigo-700 text-white py-2 rounded-xl text-xs font-medium cursor-pointer">सेव करें</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 2: ADD NOTE -->
-    <div id="noteModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl w-full max-w-sm p-5 space-y-3 shadow-xl">
-            <h3 class="font-bold text-sm text-slate-800">हैंड नोट जोड़ें</h3>
-            <input type="text" id="noteTitle" placeholder="विषय / शीर्षक" class="w-full p-2.5 border rounded-xl text-xs">
-            <textarea id="noteDesc" rows="4" placeholder="अपने नोट्स यहाँ लिखें..." class="w-full p-2.5 border rounded-xl text-xs"></textarea>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('noteModal')" class="w-1/2 bg-slate-100 text-slate-600 py-2 rounded-xl text-xs font-medium cursor-pointer">रद्द करें</button>
-                <button onclick="saveNote()" class="w-1/2 bg-amber-700 text-white py-2 rounded-xl text-xs font-medium cursor-pointer">सेव करें</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 3: ADD FILE/IMAGE -->
-    <div id="fileModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl w-full max-w-sm p-5 space-y-3 shadow-xl">
-            <h3 class="font-bold text-sm text-slate-800">इमेज या फाइल अपलोड करें</h3>
-            <input type="text" id="fileTitle" placeholder="फाइल का नाम" class="w-full p-2.5 border rounded-xl text-xs">
-            <input type="file" id="fileInput" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100">
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('fileModal')" class="w-1/2 bg-slate-100 text-slate-600 py-2 rounded-xl text-xs font-medium cursor-pointer">रद्द करें</button>
-                <button onclick="saveFile()" class="w-1/2 bg-emerald-700 text-white py-2 rounded-xl text-xs font-medium cursor-pointer">सेव करें</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 4: ADD TIMETABLE -->
-    <div id="timeModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl w-full max-w-sm p-5 space-y-3 shadow-xl">
-            <h3 class="font-bold text-sm text-slate-800">टाइमटेबल स्लॉट जोड़ें</h3>
-            <input type="text" id="timeSlot" placeholder="समय (जैसे- 06:00 AM - 09:00 AM)" class="w-full p-2.5 border rounded-xl text-xs">
-            <input type="text" id="timeTask" placeholder="क्या पढ़ना है? (जैसे- Polity Revision)" class="w-full p-2.5 border rounded-xl text-xs">
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('timeModal')" class="w-1/2 bg-slate-100 text-slate-600 py-2 rounded-xl text-xs font-medium cursor-pointer">रद्द करें</button>
-                <button onclick="saveTime()" class="w-1/2 bg-rose-700 text-white py-2 rounded-xl text-xs font-medium cursor-pointer">सेव करें</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript logic -->
+    <!-- JavaScript Application Logic -->
     <script>
-        function switchTab(tab) {
-            document.getElementById('sectionBooks').classList.add('hidden');
-            document.getElementById('sectionNotes').classList.add('hidden');
-            document.getElementById('sectionFiles').classList.add('hidden');
-            document.getElementById('sectionTime').classList.add('hidden');
-
-            document.getElementById('tabBooks').className = "py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer";
-            document.getElementById('tabNotes').className = "py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer";
-            document.getElementById('tabFiles').className = "py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer";
-            document.getElementById('tabTime').className = "py-2 text-[10px] font-medium text-slate-500 transition cursor-pointer";
-
-            if(tab === 'books') {
-                document.getElementById('sectionBooks').classList.remove('hidden');
-                document.getElementById('tabBooks').className = "py-2 text-[10px] font-bold text-indigo-700 border-b-2 border-indigo-700 transition cursor-pointer";
-                renderBooks();
-            } else if(tab === 'notes') {
-                document.getElementById('sectionNotes').classList.remove('hidden');
-                document.getElementById('tabNotes').className = "py-2 text-[10px] font-bold text-amber-700 border-b-2 border-amber-700 transition cursor-pointer";
-                renderNotes();
-            } else if(tab === 'files') {
-                document.getElementById('sectionFiles').classList.remove('hidden');
-                document.getElementById('tabFiles').className = "py-2 text-[10px] font-bold text-emerald-700 border-b-2 border-emerald-700 transition cursor-pointer";
-                renderFiles();
-            } else if(tab === 'time') {
-                document.getElementById('sectionTime').classList.remove('hidden');
-                document.getElementById('tabTime').className = "py-2 text-[10px] font-bold text-rose-700 border-b-2 border-rose-700 transition cursor-pointer";
-                renderTime();
-            }
+        // Tab Switching
+        function switchTab(tabId) {
+            ['books', 'notes', 'files', 'timetable', 'progress'].forEach(t => {
+                document.getElementById(`section-${t}`).classList.add('hidden');
+                document.getElementById(`tab-${t}`).className = "flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition";
+            });
+            document.getElementById(`section-${tabId}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabId}`).className = "flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white transition";
+            if(tabId === 'progress') renderProgress();
         }
 
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        // Default UPSC Syllabus Structure
+        const defaultSyllabus = {
+            "Indian Polity & Governance": [
+                "Historical Underpinnings & Evolution",
+                "Salient Features of Constitution",
+                "Preamble, Fundamental Rights & DPSP",
+                "Parliament & State Legislatures",
+                "Judiciary & Supreme Court",
+                "Centre-State Relations",
+                "Constitutional & Non-Constitutional Bodies"
+            ],
+            "Indian Economy": [
+                "National Income & Growth",
+                "Inflation, Monetary & Fiscal Policy",
+                "Banking, NBFCs & Capital Markets",
+                "Agriculture, Food Security & PDS",
+                "Industrial Policy & Infrastructure",
+                "Budgeting & Taxation"
+            ],
+            "Modern Indian History": [
+                "Advent of Europeans & British Conquest",
+                "Revolt of 1857 & Peasant Movements",
+                "Indian National Movement (1885-1919)",
+                "Gandhian Era & Mass Movements",
+                "Freedom Struggle & Partition"
+            ],
+            "Geography": [
+                "Physical Geography of India & World",
+                "Climatology & Oceanography",
+                "Economic & Human Geography",
+                "Geomorphology & Natural Resources"
+            ],
+            "Environment & Ecology": [
+                "Ecology & Ecosystem Dynamics",
+                "Biodiversity & Conservation",
+                "Climate Change & Global Warming",
+                "Environmental Laws & Conventions"
+            ]
+        };
 
-        let books = JSON.parse(localStorage.getItem('my_hub_books')) || [];
-        let notes = JSON.parse(localStorage.getItem('my_hub_notes')) || [];
-        let files = JSON.parse(localStorage.getItem('my_hub_files')) || [];
-        let times = JSON.parse(localStorage.getItem('my_hub_times')) || [];
+        // Initialize LocalStorage Data
+        function getData(key) {
+            return JSON.parse(localStorage.getItem(key)) || [];
+        }
+        function saveData(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
 
-        function saveBook() {
-            let title = document.getElementById('bookTitle').value.trim();
-            let author = document.getElementById('bookAuthor.value') || document.getElementById('bookAuthor').value.trim();
-            let link = document.getElementById('bookLink').value.trim();
-            if(!title) return alert('बुक का नाम लिखें!');
-            books.push({ id: Date.now(), title, author, link });
-            localStorage.setItem('my_hub_books', JSON.stringify(books));
-            closeModal('bookModal');
-            document.getElementById('bookTitle').value = '';
-            document.getElementById('bookAuthor').value = '';
-            document.getElementById('bookLink').value = '';
+        // --- 1. BOOKS LOGIC ---
+        function addBook(e) {
+            e.preventDefault();
+            const title = document.getElementById('bookTitle').value;
+            const author = document.getElementById('bookAuthor').value;
+            const url = document.getElementById('bookUrl').value;
+            const books = getData('upsc_books');
+            books.push({ title, author, url });
+            saveData('upsc_books', books);
+            document.getElementById('bookForm').reset();
             renderBooks();
         }
-
+        function deleteBook(index) {
+            const books = getData('upsc_books');
+            books.splice(index, 1);
+            saveData('upsc_books', books);
+            renderBooks();
+        }
         function renderBooks() {
-            let c = document.getElementById('booksContainer');
-            c.innerHTML = books.length === 0 ? '<p class="text-center text-slate-400 py-6 text-xs">कोई बुक नहीं जुड़ी है।</p>' : '';
-            books.slice().reverse().forEach(b => {
-                c.innerHTML += `<div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-xs">📖 ${b.title}</h4>
-                        <p class="text-[11px] text-slate-500">लेखक: ${b.author || 'उपलब्ध नहीं'}</p>
-                        ${b.link ? `<a href="${b.link}" target="_blank" class="text-[10px] text-indigo-600 underline font-bold mt-1 inline-block">पीडीएफ / लिंक खोलें</a>` : ''}
-                    </div>
-                    <button onclick="deleteBook(${b.id})" class="text-rose-500 text-xs cursor-pointer">🗑️</button>
-                </div>`;
+            const books = getData('upsc_books');
+            const list = document.getElementById('booksList');
+            list.innerHTML = books.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No books added yet.</p>' : '';
+            books.forEach((b, i) => {
+                list.innerHTML += `
+                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-bold text-sm text-slate-800">${b.title}</h3>
+                            <p class="text-xs text-indigo-600 font-medium">Author: ${b.author}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="${b.url}" target="_blank" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-100">Open</a>
+                            <button onclick="deleteBook(${i})" class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-xs">🗑️</button>
+                        </div>
+                    </div>`;
             });
         }
-        function deleteBook(id) { books = books.filter(x => x.id !== id); localStorage.setItem('my_hub_books', JSON.stringify(books)); renderBooks(); }
 
-        function saveNote() {
-            let title = document.getElementById('noteTitle').value.trim();
-            let desc = document.getElementById('noteDesc').value.trim();
-            if(!title || !desc) return alert('शीर्षक और विवरण भरें!');
-            notes.push({ id: Date.now(), title, desc });
-            localStorage.setItem('my_hub_notes', JSON.stringify(notes));
-            closeModal('noteModal');
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteDesc').value = '';
+        // --- 2. NOTES LOGIC ---
+        function addNote(e) {
+            e.preventDefault();
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('noteContent').value;
+            const notes = getData('upsc_notes');
+            notes.push({ title, content });
+            saveData('upsc_notes', notes);
+            document.getElementById('noteForm').reset();
             renderNotes();
         }
-
+        function deleteNote(index) {
+            const notes = getData('upsc_notes');
+            notes.splice(index, 1);
+            saveData('upsc_notes', notes);
+            renderNotes();
+        }
         function renderNotes() {
-            let c = document.getElementById('notesContainer');
-            c.innerHTML = notes.length === 0 ? '<p class="text-center text-slate-400 py-6 text-xs">कोई हैंड नोट नहीं है।</p>' : '';
-            notes.slice().reverse().forEach(n => {
-                c.innerHTML += `<div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-start">
-                    <div><h4 class="font-bold text-slate-800 text-xs">✍️ ${n.title}</h4><p class="text-[11px] text-slate-500 mt-1">${n.desc}</p></div>
-                    <button onclick="deleteNote(${n.id})" class="text-rose-500 text-xs cursor-pointer">🗑️</button>
-                </div>`;
+            const notes = getData('upsc_notes');
+            const list = document.getElementById('notesList');
+            list.innerHTML = notes.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No notes added yet.</p>' : '';
+            notes.forEach((n, i) => {
+                list.innerHTML += `
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-bold text-sm text-slate-800">${n.title}</h3>
+                            <button onclick="deleteNote(${i})" class="text-red-500 text-xs">🗑️</button>
+                        </div>
+                        <p class="text-xs text-slate-600 whitespace-pre-wrap bg-slate-50 p-2.5 rounded-lg">${n.content}</p>
+                    </div>`;
             });
         }
-        function deleteNote(id) { notes = notes.filter(x => x.id !== id); localStorage.setItem('my_hub_notes', JSON.stringify(notes)); renderNotes(); }
 
-        function saveFile() {
-            let title = document.getElementById('fileTitle').value.trim();
-            let fileInput = document.getElementById('fileInput');
-            if(!title || fileInput.files.length === 0) return alert('फाइल का नाम और फाइल चुनें!');
-            let file = fileInput.files[0];
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                files.push({ id: Date.now(), title, data: e.target.result, fileName: file.name });
-                localStorage.setItem('my_hub_files', JSON.stringify(files));
-                closeModal('fileModal');
-                document.getElementById('fileTitle').value = '';
-                fileInput.value = '';
-                renderFiles();
+        // --- 3. FILES LOGIC (Direct Tab View Fix) ---
+        function addFile(e) {
+            e.preventDefault();
+            const name = document.getElementById('fileName').value;
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if(file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const files = getData('upsc_files');
+                    files.push({ name, dataUrl: event.target.result, fileType: file.type });
+                    saveData('upsc_files', files);
+                    document.getElementById('fileForm').reset();
+                    renderFiles();
+                };
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
         }
-
+        function deleteFile(index) {
+            const files = getData('upsc_files');
+            files.splice(index, 1);
+            saveData('upsc_files', files);
+            renderFiles();
+        }
+        function viewFile(index) {
+            const files = getData('upsc_files');
+            const f = files[index];
+            const newWindow = window.open();
+            if(f.fileType.includes('image')) {
+                newWindow.document.write(`<iframe src="${f.dataUrl}" style="border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;" allowfullscreen></iframe>`);
+            } else {
+                newWindow.document.write(`<iframe src="${f.dataUrl}" style="border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;" allowfullscreen></iframe>`);
+            }
+        }
         function renderFiles() {
-            let c = document.getElementById('filesContainer');
-            c.innerHTML = files.length === 0 ? '<p class="text-center text-slate-400 py-6 text-xs">कोई फाइल या इमेज नहीं है।</p>' : '';
-            files.slice().reverse().forEach(f => {
-                c.innerHTML += `<div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-xs">📁 ${f.title}</h4>
-                        <p class="text-[10px] text-slate-400">${f.fileName || ''}</p>
-                        <a href="${f.data}" download="${f.fileName || 'document'}" class="text-[10px] text-emerald-600 underline font-bold mt-1 inline-block">डाउनलोड / देखें</a>
-                    </div>
-                    <button onclick="deleteFile(${f.id})" class="text-rose-500 text-xs cursor-pointer">🗑️</button>
-                </div>`;
+            const files = getData('upsc_files');
+            const list = document.getElementById('filesList');
+            list.innerHTML = files.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No files uploaded yet.</p>' : '';
+            files.forEach((f, i) => {
+                list.innerHTML += `
+                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <span class="font-bold text-sm text-slate-800">📁 ${f.name}</span>
+                        <div class="flex space-x-2">
+                            <button onclick="viewFile(${i})" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-100">View File</button>
+                            <button onclick="deleteFile(${i})" class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-xs">🗑️</button>
+                        </div>
+                    </div>`;
             });
         }
-        function deleteFile(id) { files = files.filter(x => x.id !== id); localStorage.setItem('my_hub_files', JSON.stringify(files)); renderFiles(); }
 
-        function saveTime() {
-            let slot = document.getElementById('timeSlot').value.trim();
-            let task = document.getElementById('timeTask').value.trim();
-            if(!slot || !task) return alert('समय और कार्य दोनों भरें!');
-            times.push({ id: Date.now(), slot, task });
-            localStorage.setItem('my_hub_times', JSON.stringify(times));
-            closeModal('timeModal');
-            document.getElementById('timeSlot').value = '';
-            document.getElementById('timeTask').value = '';
-            renderTime();
+        // --- 4. TIMETABLE LOGIC ---
+        function addTimetable(e) {
+            e.preventDefault();
+            const time = document.getElementById('timeSlot').value;
+            const task = document.getElementById('taskName').value;
+            const timetable = getData('upsc_timetable');
+            timetable.push({ time, task });
+            saveData('upsc_timetable', timetable);
+            document.getElementById('timetableForm').reset();
+            renderTimetable();
         }
-
-        function renderTime() {
-            let c = document.getElementById('timeContainer');
-            c.innerHTML = times.length === 0 ? '<p class="text-center text-slate-400 py-6 text-xs">कोई टाइमटेबल सेट नहीं है।</p>' : '';
-            times.forEach(t => {
-                c.innerHTML += `<div class="bg-white p-3 rounded-2xl shadow-sm border flex justify-between items-center">
-                    <div><span class="text-[10px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-bold">${t.slot}</span>
-                    <h4 class="font-bold text-slate-800 text-xs mt-1">🎯 ${t.task}</h4></div>
-                    <button onclick="deleteTime(${t.id})" class="text-rose-500 text-xs cursor-pointer">🗑️</button>
-                </div>`;
+        function deleteTimetable(index) {
+            const timetable = getData('upsc_timetable');
+            timetable.splice(index, 1);
+            saveData('upsc_timetable', timetable);
+            renderTimetable();
+        }
+        function renderTimetable() {
+            const timetable = getData('upsc_timetable');
+            const list = document.getElementById('timetableList');
+            list.innerHTML = timetable.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No tasks scheduled.</p>' : '';
+            timetable.forEach((t, i) => {
+                list.innerHTML += `
+                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-bold">${t.time}</span>
+                            <h3 class="font-semibold text-sm text-slate-800 mt-1">${t.task}</h3>
+                        </div>
+                        <button onclick="deleteTimetable(${i})" class="text-red-500 text-xs">🗑️</button>
+                    </div>`;
             });
         }
-        function deleteTime(id) { times = times.filter(x => x.id !== id); localStorage.setItem('my_hub_times', JSON.stringify(times)); renderTime(); }
 
-        // Initial load
-        renderBooks();
-    </script>
-</body>
-      </html>
-      
+        // --- 5. SYLLABUS PROGRESS TRACKER LOGIC ---
+        function getCompletedTopics() {
+            return JSON.parse(localStorage.getItem('upsc_completed_topics')) || {};
+        }
+        function toggleTopic(subject, topic) {
+            let completed = getCompletedTopics();
+            if(!completed[subject]) completed[subject] = [];
+            
+            const idx = completed[subject].indexOf(topic);
+            if(idx > -1) {
+                completed[subject].splice(idx, 1);
+            } else {
+                completed[subject].push(topic);
+            }
+            localStorage.setItem('upsc_completed_topics', JSON.stringify(completed));
+            renderProgress();
+        }
+        function renderProgress() {
+            const completedMap = getCompletedTopics();
+            const container = document.getElementById('subjectsContainer');
+            container.innerHTML = '';
+
+            let totalTopicsCount = 0;
+            let totalCompletedCount = 0;
+
+            Object.keys(defaultSyllabus).forEach(subject => {
+                const topics = defaultSyllabus[subject];
+                const subjectCompleted = completedMap[subject] || [];
+                
+                totalTopicsCount += topics.length;
+                totalCompletedCount += subjectCompleted.length;
+
+                const subPercent = Math.round((subjectCompleted.length / topics.length) * 100) || 0;
+
+                let topicsHtml = '';
+                topics.forEach(topic => {
+                    const isChecked = subjectCompleted.includes(topic) ? 'checked' : '';
+                    topicsHtml += `
+          
