@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background-color: #f8fafc;
+            background-color: #f1f5f9;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     </style>
@@ -16,119 +16,113 @@
 <body class="bg-slate-100 text-slate-800 pb-24">
 
     <!-- Header -->
-    <header class="bg-indigo-950 text-white p-4 shadow-md sticky top-0 z-50">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-                <span class="text-2xl">📖</span>
+    <header class="bg-indigo-900 text-white p-4 shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl">🎯</span>
                 <div>
-                    <h1 class="text-lg font-bold">UPSC My Hub</h1>
-                    <p class="text-[10px] text-indigo-200">Sandeep's Ultimate Study & Tracker Tool</p>
+                    <h1 class="text-lg font-bold tracking-wide">UPSC My Hub</h1>
+                    <p class="text-[11px] text-indigo-200">Sandeep's Ultimate Study & Progress Tracker</p>
                 </div>
             </div>
-            <span class="bg-indigo-900 text-xs px-2.5 py-1 rounded-full text-indigo-200 border border-indigo-700">Online</span>
+            <span class="bg-indigo-800 text-xs px-3 py-1 rounded-full text-indigo-200 border border-indigo-700 font-medium">Live App</span>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-4xl mx-auto p-4">
+    <main class="max-w-6xl mx-auto p-4 md:p-6">
 
         <!-- Tabs Navigation -->
-        <div class="flex overflow-x-auto space-x-2 bg-white p-2 rounded-xl shadow-sm mb-6 border border-slate-200 scrollbar-none">
-            <button onclick="switchTab('books')" id="tab-books" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white transition">📚 Books & Links</button>
-            <button onclick="switchTab('notes')" id="tab-notes" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">✍️ Notes</button>
-            <button onclick="switchTab('files')" id="tab-files" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">📁 Files & Imgs</button>
-            <button onclick="switchTab('timetable')" id="tab-timetable" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">⏰ Timetable</button>
-            <button onclick="switchTab('progress')" id="tab-progress" class="flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition">📊 Syllabus Tracker</button>
+        <div class="flex overflow-x-auto space-x-2 bg-white p-2.5 rounded-2xl shadow-sm mb-6 border border-slate-200 scrollbar-none">
+            <button onclick="switchTab('books')" id="tab-books" class="flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm bg-indigo-600 text-white shadow-sm transition">📚 Books & Links</button>
+            <button onclick="switchTab('notes')" id="tab-notes" class="flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition">✍️ Notes</button>
+            <button onclick="switchTab('files')" id="tab-files" class="flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition">📁 Files & Imgs</button>
+            <button onclick="switchTab('timetable')" id="tab-timetable" class="flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition">⏰ Timetable</button>
+            <button onclick="switchTab('progress')" id="tab-progress" class="flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition">📊 Syllabus Tracker</button>
         </div>
 
         <!-- 1. BOOKS & LINKS TAB -->
-        <div id="section-books" class="space-y-4">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div id="section-books" class="space-y-6">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
                 <h2 class="text-md font-bold text-slate-800 mb-3">Add Book / PDF Link</h2>
                 <form id="bookForm" onsubmit="addBook(event)" class="space-y-3">
-                    <input type="text" id="bookTitle" placeholder="Book / Document Name" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    <input type="text" id="bookAuthor" placeholder="Author / Publication Name" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    <input type="url" id="bookUrl" placeholder="Paste PDF / Web Link (https://...)" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Save Book Link</button>
+                    <input type="text" id="bookTitle" placeholder="Book / Document Name" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="text" id="bookAuthor" placeholder="Author / Publication Name" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="url" id="bookUrl" placeholder="Paste PDF / Web Link (https://...)" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 shadow-sm transition">Save Book Link</button>
                 </form>
             </div>
-            <div id="booksList" class="space-y-3"></div>
+            <div id="booksList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <!-- 2. NOTES TAB -->
-        <div id="section-notes" class="space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <h2 class="text-md font-bold text-slate-800 mb-3">Add Handwritten / Typed Note</h2>
+        <div id="section-notes" class="space-y-6 hidden">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
+                <h2 class="text-md font-bold text-slate-800 mb-3">Add Note / Summary</h2>
                 <form id="noteForm" onsubmit="addNote(event)" class="space-y-3">
-                    <input type="text" id="noteTitle" placeholder="Note Topic / Title" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    <textarea id="noteContent" placeholder="Write your notes or summary here..." rows="4" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
-                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Save Note</button>
+                    <input type="text" id="noteTitle" placeholder="Note Topic / Title" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <textarea id="noteContent" placeholder="Write your notes here..." rows="4" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none"></textarea>
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 shadow-sm transition">Save Note</button>
                 </form>
             </div>
-            <div id="notesList" class="space-y-3"></div>
+            <div id="notesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <!-- 3. FILES & IMAGES TAB -->
-        <div id="section-files" class="space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div id="section-files" class="space-y-6 hidden">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
                 <h2 class="text-md font-bold text-slate-800 mb-3">Upload Local File / Image</h2>
                 <form id="fileForm" onsubmit="addFile(event)" class="space-y-3">
-                    <input type="text" id="fileName" placeholder="File / Image Description" required class="w-full p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    <input type="file" id="fileInput" accept="image/*,.pdf" required class="w-full p-2 text-sm border rounded-lg bg-slate-50">
-                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Upload & Save</button>
+                    <input type="text" id="fileName" placeholder="File / Image Description" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="file" id="fileInput" accept="image/*,.pdf" required class="w-full p-2.5 text-sm border rounded-xl bg-slate-50">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 shadow-sm transition">Upload & Save</button>
                 </form>
             </div>
-            <div id="filesList" class="space-y-3"></div>
+            <div id="filesList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <!-- 4. TIMETABLE TAB -->
-        <div id="section-timetable" class="space-y-4 hidden">
-            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+        <div id="section-timetable" class="space-y-6 hidden">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 max-w-xl">
                 <h2 class="text-md font-bold text-slate-800 mb-3">Add Daily Schedule Task</h2>
                 <form id="timetableForm" onsubmit="addTimetable(event)" class="space-y-3">
-                    <div class="flex space-x-2">
-                        <input type="text" id="timeSlot" placeholder="Time (e.g., 08:00 AM - 10:00 AM)" required class="w-1/2 p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <input type="text" id="taskName" placeholder="Study Task" required class="w-1/2 p-2.5 text-sm border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                    </div>
-                    <button type="submit" class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium text-sm hover:bg-indigo-700 transition">Add to Timetable</button>
+                    <input type="text" id="timeSlot" placeholder="Time (e.g., 08:00 AM - 10:00 AM)" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <input type="text" id="taskName" placeholder="Study Task" required class="w-full p-3 text-sm border rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold text-sm hover:bg-indigo-700 shadow-sm transition">Add to Timetable</button>
                 </form>
             </div>
-            <div id="timetableList" class="space-y-3"></div>
+            <div id="timetableList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
         </div>
 
         <!-- 5. SYLLABUS PROGRESS TRACKER TAB -->
-        <div id="section-progress" class="space-y-4 hidden">
-            <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 text-center">
-                <h2 class="text-lg font-bold text-slate-800 mb-1">UPSC Syllabus Completion</h2>
-                <p class="text-xs text-slate-500 mb-4">Track subject-wise topic completion</p>
-                
-                <!-- Overall Progress Bar -->
-                <div class="bg-slate-100 rounded-full h-4 overflow-hidden mb-2 border">
+        <div id="section-progress" class="space-y-6 hidden">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center max-w-2xl mx-auto">
+                <h2 class="text-lg font-bold text-slate-800 mb-1">UPSC Overall Syllabus Progress</h2>
+                <p class="text-xs text-slate-500 mb-4">Subject-wise topic tracking and completion percentage</p>
+                <div class="bg-slate-100 rounded-full h-4 overflow-hidden mb-3 border">
                     <div id="overallProgressBar" class="bg-indigo-600 h-full transition-all duration-500" style="width: 0%"></div>
                 </div>
                 <p id="overallProgressText" class="text-sm font-bold text-indigo-900">0% Completed</p>
             </div>
 
-            <!-- Subject Cards Container -->
-            <div id="subjectsContainer" class="space-y-4"></div>
+            <!-- Stylish Grid for Subject Cards (3 Columns on Desktop) -->
+            <div id="subjectsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
 
     </main>
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Tab Switching
         function switchTab(tabId) {
             ['books', 'notes', 'files', 'timetable', 'progress'].forEach(t => {
                 document.getElementById(`section-${t}`).classList.add('hidden');
-                document.getElementById(`tab-${t}`).className = "flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm text-slate-600 hover:bg-slate-100 transition";
+                document.getElementById(`tab-${t}`).className = "flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm text-slate-600 hover:bg-slate-100 transition";
             });
             document.getElementById(`section-${tabId}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabId}`).className = "flex-1 whitespace-nowrap px-4 py-2 rounded-lg font-medium text-sm bg-indigo-600 text-white transition";
+            document.getElementById(`tab-${tabId}`).className = "flex-1 whitespace-nowrap px-4 py-2.5 rounded-xl font-semibold text-sm bg-indigo-600 text-white shadow-sm transition";
             if(tabId === 'progress') renderProgress();
         }
 
-        // Default UPSC Syllabus Structure
         const defaultSyllabus = {
             "Indian Polity & Governance": [
                 "Historical Underpinnings & Evolution",
@@ -168,7 +162,6 @@
             ]
         };
 
-        // Initialize LocalStorage Data
         function getData(key) {
             return JSON.parse(localStorage.getItem(key)) || [];
         }
@@ -176,7 +169,7 @@
             localStorage.setItem(key, JSON.stringify(data));
         }
 
-        // --- 1. BOOKS LOGIC ---
+        // --- BOOKS ---
         function addBook(e) {
             e.preventDefault();
             const title = document.getElementById('bookTitle').value;
@@ -197,23 +190,23 @@
         function renderBooks() {
             const books = getData('upsc_books');
             const list = document.getElementById('booksList');
-            list.innerHTML = books.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No books added yet.</p>' : '';
+            list.innerHTML = books.length === 0 ? '<p class="text-xs text-slate-400 col-span-full text-center py-6">No books added yet.</p>' : '';
             books.forEach((b, i) => {
                 list.innerHTML += `
-                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
                         <div>
                             <h3 class="font-bold text-sm text-slate-800">${b.title}</h3>
-                            <p class="text-xs text-indigo-600 font-medium">Author: ${b.author}</p>
+                            <p class="text-xs text-indigo-600 font-semibold mt-1">Author: ${b.author}</p>
                         </div>
-                        <div class="flex space-x-2">
-                            <a href="${b.url}" target="_blank" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-100">Open</a>
-                            <button onclick="deleteBook(${i})" class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-xs">🗑️</button>
+                        <div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100">
+                            <a href="${b.url}" target="_blank" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-xl text-xs font-semibold hover:bg-indigo-100 transition">Open Link</a>
+                            <button onclick="deleteBook(${i})" class="text-red-500 hover:bg-red-50 p-2 rounded-xl text-xs transition">🗑️ Delete</button>
                         </div>
                     </div>`;
             });
         }
 
-        // --- 2. NOTES LOGIC ---
+        // --- NOTES ---
         function addNote(e) {
             e.preventDefault();
             const title = document.getElementById('noteTitle').value;
@@ -233,20 +226,22 @@
         function renderNotes() {
             const notes = getData('upsc_notes');
             const list = document.getElementById('notesList');
-            list.innerHTML = notes.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No notes added yet.</p>' : '';
+            list.innerHTML = notes.length === 0 ? '<p class="text-xs text-slate-400 col-span-full text-center py-6">No notes added yet.</p>' : '';
             notes.forEach((n, i) => {
                 list.innerHTML += `
-                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                        <div class="flex justify-between items-center mb-1">
-                            <h3 class="font-bold text-sm text-slate-800">${n.title}</h3>
-                            <button onclick="deleteNote(${i})" class="text-red-500 text-xs">🗑️</button>
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-bold text-sm text-slate-800">${n.title}</h3>
+                                <button onclick="deleteNote(${i})" class="text-red-500 text-xs p-1">🗑️</button>
+                            </div>
+                            <p class="text-xs text-slate-600 whitespace-pre-wrap bg-slate-50 p-3 rounded-xl">${n.content}</p>
                         </div>
-                        <p class="text-xs text-slate-600 whitespace-pre-wrap bg-slate-50 p-2.5 rounded-lg">${n.content}</p>
                     </div>`;
             });
         }
 
-        // --- 3. FILES LOGIC (Direct Tab View Fix) ---
+        // --- FILES ---
         function addFile(e) {
             e.preventDefault();
             const name = document.getElementById('fileName').value;
@@ -274,29 +269,25 @@
             const files = getData('upsc_files');
             const f = files[index];
             const newWindow = window.open();
-            if(f.fileType.includes('image')) {
-                newWindow.document.write(`<iframe src="${f.dataUrl}" style="border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;" allowfullscreen></iframe>`);
-            } else {
-                newWindow.document.write(`<iframe src="${f.dataUrl}" style="border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;" allowfullscreen></iframe>`);
-            }
+            newWindow.document.write(`<iframe src="${f.dataUrl}" style="border:0; top:0; left:0; bottom:0; right:0; width:100%; height:100%;" allowfullscreen></iframe>`);
         }
         function renderFiles() {
             const files = getData('upsc_files');
             const list = document.getElementById('filesList');
-            list.innerHTML = files.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No files uploaded yet.</p>' : '';
+            list.innerHTML = files.length === 0 ? '<p class="text-xs text-slate-400 col-span-full text-center py-6">No files uploaded yet.</p>' : '';
             files.forEach((f, i) => {
                 list.innerHTML += `
-                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
                         <span class="font-bold text-sm text-slate-800">📁 ${f.name}</span>
-                        <div class="flex space-x-2">
-                            <button onclick="viewFile(${i})" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-100">View File</button>
-                            <button onclick="deleteFile(${i})" class="text-red-500 hover:bg-red-50 p-1.5 rounded-lg text-xs">🗑️</button>
+                        <div class="flex justify-between items-center mt-4 pt-3 border-t border-slate-100">
+                            <button onclick="viewFile(${i})" class="bg-indigo-50 text-indigo-600 px-3 py-1.5 rounded-xl text-xs font-semibold hover:bg-indigo-100 transition">View File</button>
+                            <button onclick="deleteFile(${i})" class="text-red-500 hover:bg-red-50 p-2 rounded-xl text-xs transition">🗑️ Delete</button>
                         </div>
                     </div>`;
             });
         }
 
-        // --- 4. TIMETABLE LOGIC ---
+        // --- TIMETABLE ---
         function addTimetable(e) {
             e.preventDefault();
             const time = document.getElementById('timeSlot').value;
@@ -316,27 +307,26 @@
         function renderTimetable() {
             const timetable = getData('upsc_timetable');
             const list = document.getElementById('timetableList');
-            list.innerHTML = timetable.length === 0 ? '<p class="text-xs text-slate-400 text-center py-4">No tasks scheduled.</p>' : '';
+            list.innerHTML = timetable.length === 0 ? '<p class="text-xs text-slate-400 col-span-full text-center py-6">No tasks scheduled.</p>' : '';
             timetable.forEach((t, i) => {
                 list.innerHTML += `
-                    <div class="bg-white p-3.5 rounded-xl shadow-sm border border-slate-200 flex justify-between items-center">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
                         <div>
-                            <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded font-bold">${t.time}</span>
-                            <h3 class="font-semibold text-sm text-slate-800 mt-1">${t.task}</h3>
+                            <span class="text-[11px] bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-lg font-bold">${t.time}</span>
+                            <h3 class="font-semibold text-sm text-slate-800 mt-2">${t.task}</h3>
                         </div>
-                        <button onclick="deleteTimetable(${i})" class="text-red-500 text-xs">🗑️</button>
+                        <button onclick="deleteTimetable(${i})" class="text-red-500 text-xs p-2">🗑️</button>
                     </div>`;
             });
         }
 
-        // --- 5. SYLLABUS PROGRESS TRACKER LOGIC ---
+        // --- PROGRESS TRACKER ---
         function getCompletedTopics() {
             return JSON.parse(localStorage.getItem('upsc_completed_topics')) || {};
         }
         function toggleTopic(subject, topic) {
             let completed = getCompletedTopics();
             if(!completed[subject]) completed[subject] = [];
-            
             const idx = completed[subject].indexOf(topic);
             if(idx > -1) {
                 completed[subject].splice(idx, 1);
@@ -363,8 +353,4 @@
 
                 const subPercent = Math.round((subjectCompleted.length / topics.length) * 100) || 0;
 
-                let topicsHtml = '';
-                topics.forEach(topic => {
-                    const isChecked = subjectCompleted.includes(topic) ? 'checked' : '';
-                    topicsHtml += `
-          
+                let topicsHtml = 
